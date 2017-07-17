@@ -3,6 +3,8 @@ FROM ubuntu:16.04
 
 ENV DEBIAN_FRONTEND="noninteractive"
 
+VOLUME ["/var/www"]
+
 # Use faster apt-get mirror for Taiwan
 # RUN perl -i.bak -pe "s/archive.ubuntu.com/free.nchc.org.tw/g" /etc/apt/sources.list
 # RUN perl -i.bak -pe "s/archive.ubuntu.com/tw.archive.ubuntu.com/g" /etc/apt/sources.list
@@ -41,7 +43,9 @@ RUN (cd yaml-2.0.0 && phpize && ./configure --quiet && make clean && make && mak
 
 ADD conf/php/yaml.ini /etc/php/7.0/mods-available/yaml.ini
 
+RUN a2enmod rewrite
 RUN phpenmod yaml && php -v
+
 
 # patch time zone
 RUN sed -i '/date.timezone = /c\date.timezone = Asia/Taipei' $(find /etc/php/7.0 -name php.ini)
@@ -51,7 +55,8 @@ RUN curl -sS https://getcomposer.org/installer | php \
   && mv composer.phar /usr/local/bin/composer \
   && chmod +x /usr/local/bin/composer
 
-# COPY ./conf/site-default /etc/nginx/sites-enabled/default
+# override the original apache default config
+COPY etc/apache2/default.conf /etc/apache2/sites-available/000-default.conf
 
 WORKDIR /home/app
 
