@@ -50,10 +50,15 @@ RUN phpenmod yaml && php -v
 # patch time zone
 RUN sed -i '/date.timezone = /c\date.timezone = Asia/Taipei' $(find /etc/php/7.0 -name php.ini)
 
+
 # Install composer
+# ================
+# ADD Dockerfile
+# https://stackoverflow.com/questions/31782220/how-can-i-prevent-a-dockerfile-instruction-from-being-cached
 RUN curl -sS https://getcomposer.org/installer | php \
   && mv composer.phar /usr/local/bin/composer \
   && chmod +x /usr/local/bin/composer
+
 
 # override the original apache default config
 COPY etc/apache2/default.conf /etc/apache2/sites-available/000-default.conf

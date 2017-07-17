@@ -1,4 +1,10 @@
 #!/bin/bash
 set -e
+
+if [[ -f composer.json ]] ; then
+    echo "Found composer.json, installing packages..."
+    composer install
+fi
+
 . /etc/apache2/envvars
 /usr/sbin/apache2 -d /etc/apache2 -DFOREGROUND
