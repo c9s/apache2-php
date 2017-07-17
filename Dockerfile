@@ -1,11 +1,5 @@
-# System Image
-#
-# - Ubuntu 14.04
-# - system php
-# - git
-# - composer
-# - nginx
-FROM  ubuntu:16.04
+FROM ubuntu:16.04
+# FROM debian:jessie-backports
 
 ENV DEBIAN_FRONTEND="noninteractive"
 
@@ -66,4 +60,5 @@ ENTRYPOINT ["/entry.sh"]
 
 EXPOSE 80 443
 
-CMD ["nginx", "-g", "daemon off;"]
+CMD [""]
+# CMD ["nginx", "-g", "daemon off;"]
