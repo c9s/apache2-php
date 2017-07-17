@@ -1,0 +1,4 @@
+#!/bin/bash
+set -e
+. /etc/apache2/envvars
+/usr/sbin/apache2 -d /etc/apache2 -DFOREGROUND

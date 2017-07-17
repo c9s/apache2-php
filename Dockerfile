@@ -51,14 +51,12 @@ RUN curl -sS https://getcomposer.org/installer | php \
   && mv composer.phar /usr/local/bin/composer \
   && chmod +x /usr/local/bin/composer
 
-# ADD ./conf/phpfpm_params /etc/nginx/phpfpm_params
 # COPY ./conf/site-default /etc/nginx/sites-enabled/default
 
 WORKDIR /home/app
-COPY entry.sh /entry.sh
-ENTRYPOINT ["/entry.sh"]
+
+COPY httpd-foreground /usr/local/bin/
 
 EXPOSE 80 443
 
-CMD [""]
-# CMD ["nginx", "-g", "daemon off;"]
+CMD ["httpd-foreground"]
