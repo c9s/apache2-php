@@ -41,7 +41,7 @@ RUN echo "extension=yaml.so" > /etc/php/7.0/mods-available/yaml.ini
 
 RUN (cd yaml-2.0.0 && phpize && ./configure --quiet && make clean && make && make install > /dev/null)
 
-ADD conf/php/yaml.ini /etc/php/7.0/mods-available/yaml.ini
+ADD etc/php/yaml.ini /etc/php/7.0/mods-available/yaml.ini
 
 RUN a2enmod rewrite
 RUN phpenmod yaml && php -v
