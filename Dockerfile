@@ -58,7 +58,7 @@ RUN curl -sS https://getcomposer.org/installer | php \
 # override the original apache default config
 COPY etc/apache2/default.conf /etc/apache2/sites-available/000-default.conf
 
-WORKDIR /home/app
+WORKDIR /var/www
 
 COPY httpd-foreground /usr/local/bin/
 
